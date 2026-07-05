@@ -1,0 +1,39 @@
+[project]
+name = "typingplanet"
+version = "0.1.0"
+description = "TypingPlanet - a local single-player typing practice game for children"
+requires-python = ">=3.13"
+dependencies = [
+    "loguru>=0.7.3",
+    "pillow>=12.3.0",
+    "platformdirs>=4.10.0",
+    "pydantic>=2.13.4",
+    "pygame-ce>=2.5.7",
+    "typer>=0.26.8",
+]
+
+[project.scripts]
+typingplanet = "typingplanet.cli:app"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "pytest-mock>=3.15.1",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/typingplanet"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+filterwarnings = [
+    "ignore:.*no fast renderer available.*:Warning",
+]
+
+[tool.uv]
+package = true

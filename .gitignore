@@ -1,0 +1,23 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Testing / caches
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local app data (fallback dir + stray dev dbs)
+.typingplanet/
+*.db
+*.db-wal
+*.db-shm
+settings.json
+typingplanet.log
+
+# Rendered screenshots (dev only)
+shots/
