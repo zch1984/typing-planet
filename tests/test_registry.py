@@ -4,7 +4,7 @@ from typingplanet.services.typing import KeyResult, TypingSession
 
 def test_registry_has_builtins():
     r = build_registry()
-    assert {p.provider_id for p in r.lesson_providers()} == {"basic", "pinyin"}
+    assert {p.provider_id for p in r.lesson_providers()} == {"basic", "case", "pinyin"}
     assert r.get_game_mode(None).mode_id == "classic"
     assert r.get_reward_strategy(None).strategy_id == "default"
     lessons = r.all_lessons()

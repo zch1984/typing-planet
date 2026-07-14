@@ -14,6 +14,7 @@ from .registry import Registry
 def load_builtin(registry: Registry) -> None:
     from ..content.providers import (
         BasicTrainingProvider,
+        CaseProvider,
         ClassicGameMode,
         DefaultRewardStrategy,
         PinyinProvider,
@@ -21,6 +22,7 @@ def load_builtin(registry: Registry) -> None:
 
     registry.register_lesson_provider(BasicTrainingProvider())
     registry.register_lesson_provider(PinyinProvider())
+    registry.register_lesson_provider(CaseProvider())
     registry.register_game_mode(ClassicGameMode(), default=True)
     registry.register_reward_strategy(DefaultRewardStrategy(), default=True)
 

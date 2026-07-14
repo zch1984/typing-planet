@@ -39,7 +39,7 @@ def test_wrong_key_does_not_advance_ime_mode(dummy_env):
     e = Engine(db_path=os.path.join(dummy_env, "t.db"))
     e.init_pygame()
     try:
-        lesson = e.lessons()[0]  # target starts with 'f'
+        lesson = e.registry.subject_lessons("basic")[0]  # target starts with f
         scene = LessonScene(e, lesson)
         e.push_scene(scene)
         km = _keymap()
@@ -61,7 +61,7 @@ def test_completes_with_empty_unicode_ime_mode(dummy_env):
     e = Engine(db_path=os.path.join(dummy_env, "t.db"))
     e.init_pygame()
     try:
-        lesson = e.lessons()[0]
+        lesson = e.registry.subject_lessons("basic")[0]
         scene = LessonScene(e, lesson)
         e.push_scene(scene)
         km = _keymap()

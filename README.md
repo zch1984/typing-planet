@@ -6,7 +6,7 @@
 ## 功能
 
 - 键位练习（主键位行 / 上排 / 下排 / 全字母）与词语、短句练习
-- 主题切换：基础训练 / 一年级语文（看汉字打拼音），每个主题即一个内容插件
+- 主题切换：基础训练 / 一年级语文（看汉字打拼音）/ 大小写练习（大写字母与小写字母对应），每个主题即一个内容插件
 - 阻塞式逐字输入：按对才前进，即时正误反馈，适合初学
 - 虚拟键盘高亮下一个要按的键，主键位 F/J 标记定位凸点
 - 实时 WPM / 准确率 / 进度，结算页星级动画
@@ -32,7 +32,7 @@
 ```powershell
 uv sync                 # 安装依赖（含可编辑安装本包）
 uv run typingplanet     # 启动游戏
-uv run pytest -q        # 运行测试（43 个）
+uv run pytest -q        # 运行测试（53 个）
 ```
 
 也可用 `python -m typingplanet` 启动。
@@ -149,9 +149,17 @@ my_pack = "my_pack.plugin"
 - `TYPINGPLANET_DATA_DIR`
 - `TYPINGPLANET_CONFIG_DIR`
 
+## 打包
+
+使用 PyInstaller 打包为 Windows 可执行程序，无需安装 Python 即可运行。详见 [PACKAGING.md](PACKAGING.md)。
+
+```powershell
+uv sync --dev                      # 安装 pyinstaller
+uv run python build_exe.py         # 打包为单文件 exe，产物在 dist/TypingPlanet.exe
+```
+
 ## 后续路线
 
 - 拼音/中文输入模式、更多 GameMode（限时、消字、Boss 战）
 - 成就系统界面、统计图表
 - 主题皮肤切换、可配置虚拟键盘指法配色
-- PyInstaller 打包为单文件可执行程序

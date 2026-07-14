@@ -30,4 +30,4 @@ def test_pinyin_first_lesson_is_tiandiren():
 def test_basic_and_pinyin_are_separate_subjects():
     r = build_registry()
     ids = {p.provider_id for p in r.lesson_providers()}
-    assert {"basic", "pinyin"} == ids
+    assert {"basic", "case", "pinyin"} == ids

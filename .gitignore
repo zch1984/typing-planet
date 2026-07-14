@@ -21,3 +21,5 @@ typingplanet.log
 
 # Rendered screenshots (dev only)
 shots/
+
+.codegraph/

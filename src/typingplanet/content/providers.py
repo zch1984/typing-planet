@@ -50,6 +50,22 @@ def _pinyin_lesson(lid: str, title: str, chinese: str, pinyin: str, order: int) 
     )
 
 
+def _case_convert_lesson(
+    lid: str, title: str, display: str, text: str, difficulty: Difficulty, order: int
+) -> Lesson:
+    """A case-conversion drill: show letters in one case, type the other."""
+    return Lesson(
+        id=lid,
+        provider_id="case",
+        title=title,
+        description="看字母，打对应大小写",
+        difficulty=difficulty,
+        segments=(Segment(text=text, display=display),),
+        order=order,
+        tags=("case", "convert"),
+    )
+
+
 # --------------------------------------------------------------------------- #
 # Basic training (keys + words)
 # --------------------------------------------------------------------------- #
@@ -121,6 +137,68 @@ class PinyinProvider:
             _pinyin_lesson("pinyin:shanshitiantu", "山石田土", "山 石 田 土", "shan shi tian tu", 8),
             _pinyin_lesson("pinyin:daxiaoduoshao", "大小多少", "大 小 多 少", "da xiao duo shao", 9),
             _pinyin_lesson("pinyin:bamahao", "爸妈好", "爸 妈 好", "ba ma hao", 10),
+        ]
+        self._by_id = {l.id: l for l in self._lessons}
+
+    def lessons(self) -> Sequence[Lesson]:
+        return list(self._lessons)
+
+    def get_lesson(self, lesson_id: str) -> Lesson | None:
+        return self._by_id.get(lesson_id)
+
+
+# --------------------------------------------------------------------------- #
+# English uppercase/lowercase correspondence
+# --------------------------------------------------------------------------- #
+
+
+class CaseProvider:
+    """English letter case: practice the correspondence between uppercase and
+    lowercase letters.
+
+    Three kinds of drills make the mapping explicit:
+      * Pair drills  -- type Aa Bb Cc so both cases of each letter are
+        pressed on the same key back-to-back.
+      * Convert drills -- the display line shows one case (e.g. A B C) and
+        the player types the other (a b c).
+      * Word drills -- real words whose first letter is capitalised, so the
+        Shift key is used in context.
+    """
+
+    provider_id = "case"
+    name = "大小写练习"
+
+    def __init__(self) -> None:
+        self._lessons: list[Lesson] = [
+            _lesson("case", "case:pair-ah", "大小写配对 A-H", "大写小写成对输入",
+                    Difficulty.EASY, 1, ["Aa Bb Cc Dd Ee Ff Gg Hh"],
+                    tags=("case", "pair")),
+            _lesson("case", "case:pair-ip", "大小写配对 I-P", "大写小写成对输入",
+                    Difficulty.EASY, 2, ["Ii Jj Kk Ll Mm Nn Oo Pp"],
+                    tags=("case", "pair")),
+            _lesson("case", "case:pair-qz", "大小写配对 Q-Z", "大写小写成对输入",
+                    Difficulty.EASY, 3, ["Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz"],
+                    tags=("case", "pair")),
+            _case_convert_lesson("case:upper-lower-1", "看大写打小写 一",
+                                 "A B C D E F G H I J K L M",
+                                 "a b c d e f g h i j k l m",
+                                 Difficulty.EASY, 4),
+            _case_convert_lesson("case:upper-lower-2", "看大写打小写 二",
+                                 "N O P Q R S T U V W X Y Z",
+                                 "n o p q r s t u v w x y z",
+                                 Difficulty.MEDIUM, 5),
+            _case_convert_lesson("case:lower-upper-1", "看小写打大写 一",
+                                 "a b c d e f g h i j k l m",
+                                 "A B C D E F G H I J K L M",
+                                 Difficulty.MEDIUM, 6),
+            _case_convert_lesson("case:lower-upper-2", "看小写打大写 二",
+                                 "n o p q r s t u v w x y z",
+                                 "N O P Q R S T U V W X Y Z",
+                                 Difficulty.HARD, 7),
+            _lesson("case", "case:words", "大小写单词", "单词首字母大写",
+                    Difficulty.HARD, 8,
+                    ["Apple Book Cat Dog", "Egg Fish Goat Hat"],
+                    tags=("case", "word")),
         ]
         self._by_id = {l.id: l for l in self._lessons}
 

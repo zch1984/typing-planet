@@ -23,7 +23,8 @@ def _setup_logging(debug: bool = False) -> None:
                    encoding="utf-8")
     except Exception:
         pass
-    logger.add(sys.stderr, level=level)
+    if sys.stderr is not None:
+        logger.add(sys.stderr, level=level)
 
 
 @app.callback(invoke_without_command=True)
